@@ -19,6 +19,8 @@ public class EntityPlayer : MonoBehaviour
 
     private GameObject collider_attack = null;
 
+    private float joystic_x = 0.0f;
+    private float joystic_y = 0.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -30,9 +32,21 @@ public class EntityPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKey("joystick button 0") && !dash_finish) // A
+       if(Input.GetButtonDown("Fire1"))
         {
+            Debug.Log("Yes");
+        }
+
+        if (Input.GetKey("joystick button 0") && !dash_finish) // A
+        {
+            if(!do_dash)
+            {
+                joystic_x = Input.GetAxis("Horizontal");
+                joystic_y = Input.GetAxis("Vertical");
+            }
+
             do_dash = true;
+
             doAttack(true);
         }
         else
@@ -46,7 +60,7 @@ public class EntityPlayer : MonoBehaviour
             }
         }
 
-        if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+        if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0 && !do_dash)
         {
             Movement(velocity);
         }
@@ -70,9 +84,15 @@ public class EntityPlayer : MonoBehaviour
         
     }
 
-    private void Movement(float velocity)
+    private void Movement(float velocity, float x = 0, float y = 0)
     {
-        Vector3 new_position = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0) * velocity * Time.deltaTime;
+        if(x == 0 && y== 0)
+        {
+            x = Input.GetAxis("Horizontal");
+            y = Input.GetAxis("Vertical");
+        }
+
+        Vector3 new_position = new Vector3(x, y, 0) * velocity * Time.deltaTime;
         gameObject.transform.Translate(new_position);
     }
 
@@ -88,7 +108,7 @@ public class EntityPlayer : MonoBehaviour
             doAttack(false);
         }
 
-        Movement(dash_velocity);
+        Movement(dash_velocity,joystic_x, joystic_y);
     }
 
     private void doAttack(bool active)
