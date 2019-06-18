@@ -39,11 +39,12 @@ public class EntityPlayer : MonoBehaviour
 
         if (Input.GetAxis("Fire1") >= 0.2 && !dash_finish) // A
         {
-           
+            
             if(!do_dash)
             {
                 joystic_x = Input.GetAxis("Horizontal")* Input.GetAxisRaw("Fire1");
                 joystic_y = Input.GetAxis("Vertical")* Input.GetAxisRaw("Fire1");
+               
             }
 
             do_dash = true;
@@ -58,28 +59,35 @@ public class EntityPlayer : MonoBehaviour
                 actual_time = 0.0f;
                 do_dash = false;
                 doAttack(false);
+                
+                PlayerAnimations.Call.SetDashAnimation(false);
             }
         }
 
         if (Mathf.Abs(Input.GetAxis("Horizontal")) >= 0.2 || Mathf.Abs(Input.GetAxis("Vertical")) >= 0.2 && !do_dash)
         {
+            PlayerAnimations.Call.setWalkingAnimation(true);
             Movement(velocity);
         }
+        else
+            PlayerAnimations.Call.setWalkingAnimation(false);
 
-        if(do_dash)
+        if (do_dash)
         {
+            PlayerAnimations.Call.SetDashAnimation(true);
             Dash();
-           
         }
 
         if(dash_finish)
         {
+           
             if (actual_time <= dash_cooldown)
                 actual_time += Time.deltaTime;
             else
             {
                 actual_time = 0;
                 dash_finish = false;
+                PlayerAnimations.Call.SetFinishAnimation(false);
             }
         }
         
@@ -107,6 +115,7 @@ public class EntityPlayer : MonoBehaviour
             actual_time = 0.0f;
             do_dash = false;
             doAttack(false);
+            PlayerAnimations.Call.SetFinishAnimation(true);
         }
 
         Movement(dash_velocity,joystic_x, joystic_y);
@@ -117,7 +126,10 @@ public class EntityPlayer : MonoBehaviour
         if (active)
             collider_attack.SetActive(true);
         else
+        {
             collider_attack.SetActive(false);
+            PlayerAnimations.Call.SetDashAnimation(false);
+        }
     }
 
 

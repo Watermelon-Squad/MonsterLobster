@@ -5,10 +5,11 @@ using UnityEngine;
 public class PlayerAnimations : MonoBehaviour
 {
     private Animator animator = null;
-
+    public static PlayerAnimations Call = null;
     void Start()
     {
         animator = gameObject.GetComponent<Animator>();
+        Call = this;
     }
 
     public void setWalkingAnimation(bool active)
@@ -41,6 +42,14 @@ public class PlayerAnimations : MonoBehaviour
             animator.SetBool("die", true);
         else
             animator.SetBool("die", false);
+    }
+
+    public void SetFinishAnimation(bool active)
+    {
+        if (active)
+            animator.SetBool("finish", true);
+        else
+            animator.SetBool("finish", false);
     }
 
 }
