@@ -36,12 +36,14 @@ public class EntityPlayer : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKey("joystick button 0") && !dash_finish) // A
+        if (Input.GetAxis("Fire1") >= 0.2 && !dash_finish) // A
         {
+           
             if(!do_dash)
             {
-                joystic_x = Input.GetAxis("Horizontal");
-                joystic_y = Input.GetAxis("Vertical");
+                Debug.Log("Vel " + Input.GetAxisRaw("Fire1").ToString());
+                joystic_x = Input.GetAxis("Horizontal")* Input.GetAxisRaw("Fire1");
+                joystic_y = Input.GetAxis("Vertical")* Input.GetAxisRaw("Fire1");
             }
 
             do_dash = true;
