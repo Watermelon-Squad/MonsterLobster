@@ -121,4 +121,14 @@ public class EntityPlayer : MonoBehaviour
         else
             collider_attack.SetActive(false);
     }
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == 11)
+        {
+            Debug.Log("Player hit collision");
+        }
+    }
+
 }
