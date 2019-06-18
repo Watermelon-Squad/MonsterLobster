@@ -20,8 +20,10 @@ public class EntityPlayer : MonoBehaviour
 
     private GameObject collider_attack = null;
 
-    private float joystic_x = 0.0f;
-    private float joystic_y = 0.0f;
+    [HideInInspector]
+    public float joystic_x = 0.0f;
+    [HideInInspector]
+    public float joystic_y = 0.0f;
 
     // Start is called before the first frame update
     void Start()
