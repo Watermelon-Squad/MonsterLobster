@@ -484,7 +484,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1152744518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -627,7 +627,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1569347828
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -804,8 +804,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4081735ff46b90c45ae895f20d3e288b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocity: 1
-  dash_velocity: 3
+  velocity: 0.01
+  dash_velocity: 0.2
   dash_time: 3
   dash_cooldown: 2
   do_dash: 0
@@ -908,7 +908,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1947385645
 SpriteRenderer:
   m_ObjectHideFlags: 0

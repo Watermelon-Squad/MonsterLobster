@@ -59,13 +59,14 @@ public class EntityPlayer : MonoBehaviour
                 doAttack(false);
                 
                 PlayerAnimations.Call.SetDashAnimation(false);
+                PlayerAnimations.Call.SetFinishAnimation(true);
             }
         }
 
         if (Mathf.Abs(Input.GetAxis("Horizontal")) >= 0.2 || Mathf.Abs(Input.GetAxis("Vertical")) >= 0.2 && !do_dash)
         {
             PlayerAnimations.Call.setWalkingAnimation(true);
-            Movement(velocity);
+            Movement(velocity, Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         }
         else
             PlayerAnimations.Call.setWalkingAnimation(false);
@@ -88,28 +89,27 @@ public class EntityPlayer : MonoBehaviour
                 PlayerAnimations.Call.SetFinishAnimation(false);
             }
         }
-        
+
     }
 
     private void FixedUpdate()
     {
-        float horizontal = Input.GetAxis("Vertical") * Time.deltaTime;
-        float vertical = Input.GetAxis("Horizontal") * Time.deltaTime;
-        float rotZ = Mathf.Atan2(horizontal, vertical) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0f, 0f, rotZ);
+        
     }
 
     private void Movement(float velocity, float x = 0, float y = 0)
     {
-        if(x == 0 && y== 0)
-        {
-            x = Input.GetAxis("Horizontal");
-            y = Input.GetAxis("Vertical");
-        }
+        float horizontal = x * velocity;
+        float vertical = y * velocity;
+        float rotZ = Mathf.Atan2(horizontal, vertical) * Mathf.Rad2Deg;
 
-        Vector3 new_position = new Vector3(x, y, 0) * velocity * Time.deltaTime;
-        gameObject.transform.Translate(new_position);
+        Vector3 new_position = new Vector3(transform.position.x + horizontal, transform.position.y + vertical, 0);
+        gameObject.transform.position = new_position;
+
+        gameObject.transform.rotation = Quaternion.Euler(new Vector3(0.0f, 0.0f, -rotZ + 90));
     }
+
+    
 
     private void Dash()
     {
