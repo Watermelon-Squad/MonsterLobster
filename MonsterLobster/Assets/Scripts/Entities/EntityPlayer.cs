@@ -17,12 +17,15 @@ public class EntityPlayer : MonoBehaviour
     private bool do_dash = false;
 
     private float actual_time = 0.0f;
-    
+
+    private GameObject collider_attack = null;
+
 
     // Start is called before the first frame update
     void Start()
     {
         Call = this;
+        collider_attack = gameObject.transform.GetChild(0).gameObject;
     }
 
     // Update is called once per frame
@@ -31,6 +34,17 @@ public class EntityPlayer : MonoBehaviour
         if(Input.GetKey("joystick button 0") && !dash_finish) // A
         {
             do_dash = true;
+            doAttack(true);
+        }
+        else
+        {
+            if(do_dash)
+            {
+                dash_finish = true;
+                actual_time = 0.0f;
+                do_dash = false;
+                doAttack(false);
+            }
         }
 
         if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
@@ -41,6 +55,7 @@ public class EntityPlayer : MonoBehaviour
         if(do_dash)
         {
             Dash();
+           
         }
 
         if(dash_finish)
@@ -71,8 +86,17 @@ public class EntityPlayer : MonoBehaviour
             dash_finish = true;
             actual_time = 0.0f;
             do_dash = false;
+            doAttack(false);
         }
 
         Movement(dash_velocity);
+    }
+
+    private void doAttack(bool active)
+    {
+        if (active)
+            collider_attack.SetActive(true);
+        else
+            collider_attack.SetActive(false);
     }
 }
