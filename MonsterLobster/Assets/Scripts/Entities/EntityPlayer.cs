@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EntityPlayer : MonoBehaviour
 {
-    EntityPlayer Call = null;
+    public EntityPlayer Call = null;
 
     public float velocity = 1.0f;
     public float dash_velocity = 3.0f;
