@@ -35,10 +35,6 @@ public class EntityPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       if(Input.GetButtonDown("Fire1"))
-        {
-            Debug.Log("Yes");
-        }
 
         if (Input.GetKey("joystick button 0") && !dash_finish) // A
         {
@@ -63,7 +59,7 @@ public class EntityPlayer : MonoBehaviour
             }
         }
 
-        if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0 && !do_dash)
+        if (Mathf.Abs(Input.GetAxis("Horizontal")) >= 0.2 || Mathf.Abs(Input.GetAxis("Vertical")) >= 0.2 && !do_dash)
         {
             Movement(velocity);
         }

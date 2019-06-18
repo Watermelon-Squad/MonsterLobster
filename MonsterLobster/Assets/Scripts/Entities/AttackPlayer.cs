@@ -15,8 +15,9 @@ public class AttackPlayer : MonoBehaviour
         transform.position = gameObject.transform.parent.position + new_position;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        Destroy(other.gameObject);
+        if(collision.gameObject.layer == 9)
+            Destroy(collision.gameObject);
     }
 }
