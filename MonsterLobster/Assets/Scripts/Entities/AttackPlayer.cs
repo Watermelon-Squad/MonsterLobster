@@ -14,4 +14,9 @@ public class AttackPlayer : MonoBehaviour
 
         transform.position = gameObject.transform.parent.position + new_position;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Destroy(other.gameObject);
+    }
 }
