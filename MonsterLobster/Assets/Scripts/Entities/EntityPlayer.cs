@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class EntityPlayer : MonoBehaviour
 {
-    [HideInInspector]
+
+
     public static EntityPlayer Call = null;
 
     public float velocity = 1.0f;
