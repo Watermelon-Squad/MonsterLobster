@@ -14,7 +14,8 @@ public class EntityPlayer : MonoBehaviour
     public float dash_cooldown = 5.0f;
 
     private bool dash_finish = false;
-    private bool do_dash = false;
+    [HideInInspector]
+    public bool do_dash = false;
 
     private float actual_time = 0.0f;
 
@@ -41,7 +42,6 @@ public class EntityPlayer : MonoBehaviour
            
             if(!do_dash)
             {
-                Debug.Log("Vel " + Input.GetAxisRaw("Fire1").ToString());
                 joystic_x = Input.GetAxis("Horizontal")* Input.GetAxisRaw("Fire1");
                 joystic_y = Input.GetAxis("Vertical")* Input.GetAxisRaw("Fire1");
             }
