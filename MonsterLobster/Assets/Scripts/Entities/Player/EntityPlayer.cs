@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class EntityPlayer : MonoBehaviour
 {
-
-
     public static EntityPlayer Call = null;
 
     public float velocity = 1.0f;
@@ -91,6 +89,14 @@ public class EntityPlayer : MonoBehaviour
             }
         }
         
+    }
+
+    private void FixedUpdate()
+    {
+        float horizontal = Input.GetAxis("Vertical") * Time.deltaTime;
+        float vertical = Input.GetAxis("Horizontal") * Time.deltaTime;
+        float rotZ = Mathf.Atan2(horizontal, vertical) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0f, 0f, rotZ);
     }
 
     private void Movement(float velocity, float x = 0, float y = 0)
