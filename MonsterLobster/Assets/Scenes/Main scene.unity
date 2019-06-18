@@ -1547,13 +1547,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4081735ff46b90c45ae895f20d3e288b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocity: 0.01
-  dash_velocity: 0.2
+  velocity: 1
+  dash_velocity: 2
   dash_time: 3
   dash_cooldown: 2
   do_dash: 0
   joystic_x: 0
   joystic_y: 0
+  direction: {x: 0, y: 0, z: 0}
 --- !u!61 &1789776893
 BoxCollider2D:
   m_ObjectHideFlags: 0
