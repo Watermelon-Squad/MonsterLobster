@@ -92,11 +92,6 @@ public class EntityPlayer : MonoBehaviour
 
     }
 
-    private void FixedUpdate()
-    {
-        
-    }
-
     private void Movement(float velocity, float x = 0, float y = 0)
     {
         float horizontal = x * velocity;
