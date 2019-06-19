@@ -14,7 +14,8 @@ public class Map_controller : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        tiles_width = floor_tiles_parent.transform.GetComponent<SpriteRenderer>().sprite.rect.width;
+        tiles_width = floor_tiles_parent.transform.GetChild(0).transform.GetComponent<SpriteRenderer>().sprite.rect.width;
+        
     }
 
     // Update is called once per frame
