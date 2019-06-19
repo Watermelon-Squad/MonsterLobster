@@ -61,10 +61,10 @@ public class PlayerAnimations : MonoBehaviour
     {
         if (active)
         {
-            animator.SetBool("finish", false);
+            animator.SetBool("finish", true);
             animator.SetBool("running", false);
             animator.SetBool("die", false);
-            animator.SetBool("impact", true);
+            animator.SetBool("impact", false);
             animator.SetBool("dash", false);
             animator.SetBool("running", false);
         }
