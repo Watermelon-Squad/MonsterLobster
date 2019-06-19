@@ -8,7 +8,7 @@ public class EntityPlayer : MonoBehaviour
 
     public float velocity = 1.0f;
 
-    public float dash_velocity = 2.0f;
+    public float dash_velocity = 8.0f;
     public float dash_time = 3.0f;
     public float dash_time_charge = 3.0f;
     public float dash_cooldown = 5.0f;
@@ -48,6 +48,11 @@ public class EntityPlayer : MonoBehaviour
         if (Input.GetKey(KeyCode.D))
             new_position.x += velocity;
 
+        if (new_position != Vector3.zero)
+            PlayerAnimations.Call.setWalkingAnimation(true);
+        else
+            PlayerAnimations.Call.setWalkingAnimation(false);
+
         gameObject.transform.position += new_position * Time.deltaTime;
 
         //Rotation
@@ -59,6 +64,7 @@ public class EntityPlayer : MonoBehaviour
         {
             float rot = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
             gameObject.transform.rotation = Quaternion.Euler(new Vector3(0.0f, 0.0f, -rot - 90));
+            PlayerAnimations.Call.SetFinishAnimation(false);
         }
 
         //Dash
@@ -74,16 +80,18 @@ public class EntityPlayer : MonoBehaviour
                 do_dash = true;
                 direction_dash = mouse_position - transform.position;
                 direction_dash.z = 0;
+                doAttack(true);
             }
         }
 
         if(do_dash)
         {
+            dash_time = actual_time;
             if (actual_dash_time <= dash_time)
             {
                 actual_dash_time += Time.deltaTime;
 
-                gameObject.transform.position += direction_dash.normalized * dash_velocity * actual_time * Time.deltaTime;
+                gameObject.transform.position += direction_dash.normalized * dash_velocity * Time.deltaTime;
             }
             else
             {
@@ -91,6 +99,7 @@ public class EntityPlayer : MonoBehaviour
                 actual_time = 0.0f;
                 do_dash = false;
                 dash_finish = true;
+                doAttack(false);
             }  
         }
 
@@ -112,11 +121,16 @@ public class EntityPlayer : MonoBehaviour
     private void doAttack(bool active)
     {
         if (active)
+        {
             collider_attack.SetActive(true);
+            PlayerAnimations.Call.SetDashAnimation(true);
+        }
         else
         {
             collider_attack.SetActive(false);
             PlayerAnimations.Call.SetDashAnimation(false);
+            PlayerAnimations.Call.SetImpactAnimation(false);
+            PlayerAnimations.Call.SetFinishAnimation(true);
         }
     }
 
