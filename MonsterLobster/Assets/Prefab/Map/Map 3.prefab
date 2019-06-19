@@ -233,8 +233,8 @@ MonoBehaviour:
   - {fileID: 1153436989438161997, guid: 5c79b0b79280cff4da9bbe9cf0cd4630, type: 3}
   - {fileID: 1153436989438161997, guid: a37040c20373fcc43b4c8aa7a2e3f436, type: 3}
   - {fileID: 1153436989438161997, guid: a4e770888f53f3947bfe92001d865422, type: 3}
-  - {fileID: 1153436989438161997, guid: ca3aeb3af234ddb4c837266316a9add6, type: 3}
   - {fileID: 1153436989438161997}
+  - {fileID: 1153436989438161997, guid: b6ef59a4965125a4d95d36292aef23b4, type: 3}
 --- !u!1 &1153436989023732604
 GameObject:
   m_ObjectHideFlags: 0
@@ -558,7 +558,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1153436989438161998}
   m_Layer: 0
-  m_Name: Map
+  m_Name: Map 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2109,8 +2109,8 @@ MonoBehaviour:
   - {fileID: 1153436989438161997, guid: 5c79b0b79280cff4da9bbe9cf0cd4630, type: 3}
   - {fileID: 1153436989438161997, guid: a37040c20373fcc43b4c8aa7a2e3f436, type: 3}
   - {fileID: 1153436989438161997, guid: a4e770888f53f3947bfe92001d865422, type: 3}
-  - {fileID: 1153436989438161997, guid: ca3aeb3af234ddb4c837266316a9add6, type: 3}
   - {fileID: 1153436989438161997}
+  - {fileID: 1153436989438161997, guid: b6ef59a4965125a4d95d36292aef23b4, type: 3}
 --- !u!1 &8341541096308999622
 GameObject:
   m_ObjectHideFlags: 0
