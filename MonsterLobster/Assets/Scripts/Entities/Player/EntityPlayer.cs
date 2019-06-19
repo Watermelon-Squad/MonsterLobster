@@ -48,6 +48,11 @@ public class EntityPlayer : MonoBehaviour
         if (Input.GetKey(KeyCode.D))
             new_position.x += velocity;
 
+        if (new_position != Vector3.zero)
+            PlayerAnimations.Call.setWalkingAnimation(true);
+        else
+            PlayerAnimations.Call.setWalkingAnimation(false);
+
         gameObject.transform.position += new_position * Time.deltaTime;
 
         //Rotation
@@ -59,6 +64,7 @@ public class EntityPlayer : MonoBehaviour
         {
             float rot = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
             gameObject.transform.rotation = Quaternion.Euler(new Vector3(0.0f, 0.0f, -rot - 90));
+            PlayerAnimations.Call.SetFinishAnimation(false);
         }
 
         //Dash
@@ -114,11 +120,16 @@ public class EntityPlayer : MonoBehaviour
     private void doAttack(bool active)
     {
         if (active)
+        {
             collider_attack.SetActive(true);
+            PlayerAnimations.Call.SetDashAnimation(true);
+        }
         else
         {
             collider_attack.SetActive(false);
             PlayerAnimations.Call.SetDashAnimation(false);
+            PlayerAnimations.Call.SetImpactAnimation(false);
+            PlayerAnimations.Call.SetFinishAnimation(true);
         }
     }
 
