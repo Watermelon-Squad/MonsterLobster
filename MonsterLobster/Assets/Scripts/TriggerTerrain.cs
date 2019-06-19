@@ -11,13 +11,13 @@ public class TriggerTerrain : MonoBehaviour
 
     private void Update()
     {
-        if (go_destroy)
+       /* if (go_destroy)
         {
             if (actual_time < max_time)
                 actual_time += Time.deltaTime;
             else
                 Destroy(gameObject);
-        }
+        }*/
     }
 
     private void OnTriggerEnter(Collider other)
