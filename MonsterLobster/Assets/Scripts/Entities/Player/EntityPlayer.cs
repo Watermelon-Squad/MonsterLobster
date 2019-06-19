@@ -58,7 +58,7 @@ public class EntityPlayer : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.I))
             reviving = true;
 
         if (reviving)
