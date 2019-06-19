@@ -246,7 +246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f9564b82900e674494cae839c54ea3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 723421752931163932, guid: ff5e573ef739c8d4bb8b80476588fbc1, type: 3}
+  player: {fileID: 2442742811644338506, guid: ff5e573ef739c8d4bb8b80476588fbc1, type: 3}
   fire_cadence: 2
   float_speed: 0.2
 --- !u!61 &7871242082689743075
