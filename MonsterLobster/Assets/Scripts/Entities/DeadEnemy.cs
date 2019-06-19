@@ -11,6 +11,7 @@ public class DeadEnemy : MonoBehaviour
     public GameObject[] blood;
     public AudioClip[] audios_enemy;
 
+    float timer = 10.0f;
     // Update is called once per frame
 
     void Start()
@@ -40,6 +41,12 @@ public class DeadEnemy : MonoBehaviour
             GameObject.Instantiate(blood[Random.RandomRange(0, 2)], transform.position, transform.rotation);
             once++;
         }
+
+        if (timer <= 0.0f)
+        {
+            Object.Destroy(gameObject);
+        }
+        timer -= Time.deltaTime;
     }
 
 
