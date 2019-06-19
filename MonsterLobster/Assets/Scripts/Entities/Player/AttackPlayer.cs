@@ -10,8 +10,8 @@ public class AttackPlayer : MonoBehaviour
     {
         if(collision.gameObject.layer == 9)
         {
-            PlayerAnimations.Call.SetImpactAnimation(true);
-            Audio.GetComponent<AudioSource>().Play();
+            if(Audio != null)
+                Audio.GetComponent<AudioSource>().Play();
             collision.gameObject.GetComponent<DeadEnemy>().death = true;
             transform.parent.GetComponent<fixed_player>().score += collision.gameObject.GetComponent<DeadEnemy>().points;
         }

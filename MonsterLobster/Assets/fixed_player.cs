@@ -26,7 +26,7 @@ public class fixed_player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        Call = this;   
     }
 
     // Update is called once per frame
@@ -109,7 +109,7 @@ public class fixed_player : MonoBehaviour
 
             if (life == 0)
             {
-                PlayerAnimations.Call.SetDieAnimation(true);
+                player_animator.SetBool("Player_dead", true);
                 PlayerPrefs.SetInt("score", score);
             }
 
