@@ -179,3 +179,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   death: 0
+  blood:
+  - {fileID: 7800083487061323564, guid: 723c6a1e32d894940bc20fd4fab73d9e, type: 3}
+  - {fileID: 8345828132661397573, guid: 91868a7c69e451744938c2c1d3325cff, type: 3}
+  - {fileID: 7800083487061323564, guid: f88aef86d2d68a940aad34f480dd0113, type: 3}
