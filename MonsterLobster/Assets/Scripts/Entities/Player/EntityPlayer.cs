@@ -17,6 +17,10 @@ public class EntityPlayer : MonoBehaviour
     public float charging_max_time = 3.0f;
     private Vector3 dash_dir;
 
+    public float dash_CD = 0.5f;
+    private float CD_counter = 0.0f;
+    private bool CD_active = false;
+
     [HideInInspector]
     public bool dashing = false;
 
@@ -43,7 +47,18 @@ public class EntityPlayer : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKey(KeyCode.D))
+        if (CD_active)
+        {
+            CD_counter += Time.deltaTime;
+
+            if(CD_counter >= dash_CD)
+            {
+                CD_active = false;
+                CD_counter = 0.0f;
+            }
+        }
+
+        if (Input.GetKey(KeyCode.I))
             reviving = true;
 
         if (reviving)
@@ -102,23 +117,38 @@ public class EntityPlayer : MonoBehaviour
 
         //
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            PlayerAnimations.Call.SetDashAnimation(true);
+        if (Input.GetMouseButtonDown(0) && !CD_active)
+        { 
             charging_dash = true;
             dash_dir = direction;
         }
 
         if (Input.GetMouseButtonUp(0) || charging_timer >= charging_max_time)
         {
-            PlayerAnimations.Call.SetImpactAnimation(true);
-            dashing = true;
-            charging_dash = false;
+            if (charging_timer > 0.2)
+            {
+                PlayerAnimations.Call.SetImpactAnimation(true);
+                dashing = true;
+                charging_dash = false;
+            }
+
+            else
+            {
+               
+                dashing = false;
+                charging_dash = false;
+                charging_timer = 0.0f;
+            }
         }
 
         if (charging_dash)
         {
             charging_timer += Time.deltaTime;
+            if(charging_timer > 0.2)
+            {
+                PlayerAnimations.Call.SetDashAnimation(true);
+            }
+
         }
 
         else if (dashing)
@@ -134,6 +164,7 @@ public class EntityPlayer : MonoBehaviour
                 dashing_timer = 0.0f;
                 charging_timer = 0.0f;
                 PlayerAnimations.Call.setIdleAnimation(true);
+                CD_active = true;
             }
         }
 
