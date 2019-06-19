@@ -15,6 +15,7 @@ public class DeadEnemy : MonoBehaviour
     void Start()
     {
         animator = gameObject.GetComponent<Animator>();
+        death = false;
     }
 
     void FixedUpdate()
