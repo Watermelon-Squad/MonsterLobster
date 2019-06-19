@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class fixed_player : MonoBehaviour
 {
 
@@ -23,6 +23,8 @@ public class fixed_player : MonoBehaviour
     public float dash_speed = 15.0f;
 
     private Vector3 direction;
+
+    public GameObject canvas;
 
     public AudioSource audiosource;
 
@@ -114,17 +116,23 @@ public class fixed_player : MonoBehaviour
         dash_inCD = true;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
+
     {
-        if (collision.gameObject.layer == 11)
+        if (collision.gameObject.layer == 11 && (!Player_dash1 || !Player_dash2 ))
         {
             life--;
 
             if (life == 0)
             {
-                player_animator.SetBool("Player_dead", true);
+                Player_dead = true;
                 PlayerPrefs.SetInt("score", score);
             }
         }
+    }
+
+    public void change_death()
+    {
+        SceneManager.LoadScene("Scoreboard Scene");
     }
 }
