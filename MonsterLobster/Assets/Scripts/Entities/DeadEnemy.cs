@@ -36,8 +36,12 @@ public class DeadEnemy : MonoBehaviour
         if (once == 0)
         {
             AudioSource audiosource = gameObject.GetComponent<AudioSource>();
-            audiosource.PlayOneShot(audios_enemy[0]);
-            audiosource.PlayOneShot(audios_enemy[1]);
+            int num = Random.Range(0, 2);
+            if (num == 1)
+            {
+                audiosource.PlayOneShot(audios_enemy[0]);
+                audiosource.PlayOneShot(audios_enemy[1]);
+            }
             transform.GetComponent<BoxCollider2D>().enabled = false;
             GameObject.Instantiate(blood[Random.RandomRange(0, 2)], transform.position, transform.rotation);
             once++;

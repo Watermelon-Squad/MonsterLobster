@@ -24,23 +24,24 @@ public class fixed_player : MonoBehaviour
 
     private Vector3 direction;
 
+    public AudioSource audiosource;
 
     private bool dash_inCD = false;
     private float dash_CD_timer = 0.0f;
     private float dash_CD = 0.2f;
 
+    public AudioClip[] audios_player;
 
     // Start is called before the first frame update
     void Start()
     {
-        Call = this;   
+        Call = this;
+        audiosource = gameObject.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
-    {
-
-       
+    {      
 
         if (!Player_dash1 && !Player_dash2)
         {
@@ -61,7 +62,9 @@ public class fixed_player : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
+
             if (!dash_inCD && !Player_dash1 && !Player_dash2)
+
             {
                 if (next_dash_1)
                 {
@@ -103,8 +106,11 @@ public class fixed_player : MonoBehaviour
 
     private void DashEnded()
     {
+
+        audiosource.PlayOneShot(audios_player[0]);
         Player_dash1 = false;
         Player_dash2 = false;
+
         dash_inCD = true;
     }
 
@@ -119,8 +125,6 @@ public class fixed_player : MonoBehaviour
                 player_animator.SetBool("Player_dead", true);
                 PlayerPrefs.SetInt("score", score);
             }
-
-
         }
     }
 }
