@@ -13,7 +13,7 @@ public class AttackPlayer : MonoBehaviour
             PlayerAnimations.Call.SetImpactAnimation(true);
             Audio.GetComponent<AudioSource>().Play();
             collision.gameObject.GetComponent<DeadEnemy>().death = true;
-            transform.parent.GetComponent<EntityPlayer>().score += collision.gameObject.GetComponent<DeadEnemy>().points;
+            transform.parent.GetComponent<fixed_player>().score += collision.gameObject.GetComponent<DeadEnemy>().points;
         }
     }
 }

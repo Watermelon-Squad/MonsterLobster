@@ -43,7 +43,7 @@ public class LifeGuard_Behaviour : MonoBehaviour
                 if (fire_timer >= fire_cadence)
                 {
                     //shoot
-                    float_dir = player.transform.position;
+                    float_dir = player.transform.position- transform.position;
                     float_moving = true;
                     fire_timer = 0.0f;
                     rubber_float.SetActive(true);
@@ -70,7 +70,8 @@ public class LifeGuard_Behaviour : MonoBehaviour
                 }
             }
         }
-
+        else
+            gameObject.transform.GetChild(0).gameObject.SetActive(false);
     }
 
     void ChangeTarget()

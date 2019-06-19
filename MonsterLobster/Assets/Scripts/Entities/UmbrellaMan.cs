@@ -35,7 +35,7 @@ public class UmbrellaMan : MonoBehaviour
 
                     transform.position += direction * speed * Time.deltaTime;
 
-                    if ((EntityPlayer.Call.gameObject.transform.position - transform.position).magnitude < min_distance_to_defense && EntityPlayer.Call.dashing)
+                    if ((fixed_player.Call.gameObject.transform.position - transform.position).magnitude < min_distance_to_defense && fixed_player.Call.Player_dash)
                     {
                         attack_mode = false;
                         actual_time = 0.0f;
@@ -66,7 +66,7 @@ public class UmbrellaMan : MonoBehaviour
 
     private void RecalculateDirection()
     {
-        direction = EntityPlayer.Call.gameObject.transform.position - transform.position;
+        direction = fixed_player.Call.gameObject.transform.position - transform.position;
         
         if (direction.magnitude > max_magnitude)
             direction = direction.normalized * max_magnitude;
