@@ -20,6 +20,7 @@ public class PlayerAnimations : MonoBehaviour
     {
         if (dead)
         {
+            transform.GetComponent<BoxCollider2D>().enabled = false;
             if (timer < 0.0f)
             {
                 SceneManager.LoadScene("Scoreboard Scene");

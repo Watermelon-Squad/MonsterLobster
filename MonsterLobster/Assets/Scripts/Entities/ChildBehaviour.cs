@@ -28,24 +28,27 @@ public class ChildBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!arrived)
+        if (!gameObject.GetComponent<DeadEnemy>().death)
         {
-            gameObject.transform.Translate(direction * speed * Time.deltaTime);
-
-
-            if (actual_time >= max_update)
+            if (!arrived)
             {
-                arrived = true;
-                actual_time = 0.0f;
+                gameObject.transform.Translate(direction * speed * Time.deltaTime);
+
+
+                if (actual_time >= max_update)
+                {
+                    arrived = true;
+                    actual_time = 0.0f;
+                }
+                else
+                    actual_time += Time.deltaTime;
+
             }
             else
-                actual_time += Time.deltaTime;
-            
-        }
-        else
-        {
-            ChangeTarget();
-            arrived = false;
+            {
+                ChangeTarget();
+                arrived = false;
+            }
         }
     }
 

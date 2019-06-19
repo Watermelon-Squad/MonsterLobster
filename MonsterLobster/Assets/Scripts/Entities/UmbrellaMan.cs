@@ -25,39 +25,42 @@ public class UmbrellaMan : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (attack_mode)
+        if (!gameObject.GetComponent<DeadEnemy>().death)
         {
-            if (actual_time <= max_time_running)
+            if (attack_mode)
             {
-                actual_time += Time.deltaTime;
-
-                transform.position += direction * speed * Time.deltaTime;
-
-               if ((EntityPlayer.Call.gameObject.transform.position - transform.position).magnitude < min_distance_to_defense && EntityPlayer.Call.dashing)
+                if (actual_time <= max_time_running)
                 {
-                    attack_mode = false;
+                    actual_time += Time.deltaTime;
+
+                    transform.position += direction * speed * Time.deltaTime;
+
+                    if ((EntityPlayer.Call.gameObject.transform.position - transform.position).magnitude < min_distance_to_defense && EntityPlayer.Call.dashing)
+                    {
+                        attack_mode = false;
+                        actual_time = 0.0f;
+                    }
+                }
+                else
+                {
+                    RecalculateDirection();
                     actual_time = 0.0f;
                 }
             }
             else
             {
-                RecalculateDirection();
-                actual_time = 0.0f;
+                if (actual_time < max_time_defending)
+                    actual_time += Time.deltaTime;
+                else
+                {
+                    actual_time = max_time_running;
+                    attack_mode = true;
+                }
             }
-        }
-        else
-        {
-            if (actual_time < max_time_defending)
-                actual_time += Time.deltaTime;
-            else
-            {
-                actual_time = max_time_running;
-                attack_mode = true;
-            }
-        }
 
-        float rot = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
-        gameObject.transform.rotation = Quaternion.Euler(new Vector3(0.0f, 0.0f, -rot - 90));
+            float rot = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
+            gameObject.transform.rotation = Quaternion.Euler(new Vector3(0.0f, 0.0f, -rot - 90));
+        }
     }
 
 

@@ -32,6 +32,7 @@ public class DeadEnemy : MonoBehaviour
     {
         if (once == 0)
         {
+            transform.GetComponent<BoxCollider2D>().enabled = false;
             GameObject.Instantiate(blood[Random.RandomRange(0, 2)], transform.position, transform.rotation);
             once++;
         }
