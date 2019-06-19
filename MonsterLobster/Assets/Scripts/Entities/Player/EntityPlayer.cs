@@ -8,7 +8,7 @@ public class EntityPlayer : MonoBehaviour
 
     public float velocity = 1.0f;
 
-    public float dash_velocity = 2.0f;
+    public float dash_velocity = 8.0f;
     public float dash_time = 3.0f;
     public float dash_time_charge = 3.0f;
     public float dash_cooldown = 5.0f;
@@ -86,11 +86,12 @@ public class EntityPlayer : MonoBehaviour
 
         if(do_dash)
         {
+            dash_time = actual_time;
             if (actual_dash_time <= dash_time)
             {
                 actual_dash_time += Time.deltaTime;
 
-                gameObject.transform.position += direction_dash.normalized * dash_velocity * actual_time * Time.deltaTime;
+                gameObject.transform.position += direction_dash.normalized * dash_velocity * Time.deltaTime;
             }
             else
             {

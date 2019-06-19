@@ -15,7 +15,7 @@ public class Map_controller : MonoBehaviour
     void Start()
     {
         tiles_width = floor_tiles_parent.transform.GetChild(0).transform.GetComponent<SpriteRenderer>().sprite.rect.width;
-        
+        tiles_width *= floor_tiles_parent.transform.GetChild(0).transform.lossyScale.x;
     }
 
     // Update is called once per frame
