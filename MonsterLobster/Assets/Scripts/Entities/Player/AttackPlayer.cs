@@ -6,6 +6,18 @@ public class AttackPlayer : MonoBehaviour
 {
     public GameObject Audio = null;
 
+    private Vector3 initial_position = Vector3.zero;
+
+    private void Start()
+    {
+        initial_position = transform.localPosition;
+    }
+
+    private void Update()
+    {
+        transform.localPosition = initial_position;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.layer == 9)
