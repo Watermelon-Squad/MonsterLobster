@@ -1,12 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 using UnityEngine.SceneManagement;
 public class fixed_player : MonoBehaviour
 {
 
     [HideInInspector]
     public int score = 0;
+
+    bool reviving = false;
+    private float revive_timer = 0.0f;
+    private float revive_maxTime = 2.0f;
 
     public int life = 3;
     public static fixed_player Call = null;
@@ -31,6 +37,8 @@ public class fixed_player : MonoBehaviour
     private bool dash_inCD = false;
     private float dash_CD_timer = 0.0f;
     private float dash_CD = 0.2f;
+
+    public Image[] lifes;
 
     public AudioClip[] audios_player;
 
@@ -104,6 +112,32 @@ public class fixed_player : MonoBehaviour
         player_animator.SetBool("Player_dashing1", Player_dash1);
         player_animator.SetBool("Player_dashing2", Player_dash2);
         player_animator.SetBool("Player_walking", Player_walk);
+
+        if (reviving)
+        {
+            gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            if (gameObject.transform.GetComponent<SpriteRenderer>().enabled)
+            {
+                gameObject.transform.GetComponent<SpriteRenderer>().enabled = false;
+            }
+
+            else
+            {
+                gameObject.transform.GetComponent<SpriteRenderer>().enabled = true;
+            }
+
+            revive_timer += Time.deltaTime;
+
+            if (revive_timer >= revive_maxTime)
+            {
+                reviving = false;
+                revive_timer = 0.0f;
+                gameObject.GetComponent<BoxCollider2D>().enabled = true;
+                gameObject.transform.GetComponent<SpriteRenderer>().enabled = true;
+
+            }
+
+        }
     }
 
     private void DashEnded()
@@ -128,7 +162,24 @@ public class fixed_player : MonoBehaviour
                 Player_dead = true;
                 PlayerPrefs.SetInt("score", score);
             }
+
+            if(life==2)
+            {
+                lifes[2].gameObject.active = false;
+            }
+            if (life == 1)
+            {
+                lifes[1].gameObject.active = false;
+            }
+            if (life == 0)
+            {
+                lifes[0].gameObject.active = false;
+            }
+
+            reviving = true;
         }
+
+
     }
 
     public void change_death()
