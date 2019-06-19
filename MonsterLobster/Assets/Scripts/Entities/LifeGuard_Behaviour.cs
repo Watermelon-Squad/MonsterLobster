@@ -50,14 +50,14 @@ public class LifeGuard_Behaviour : MonoBehaviour
         }
         else
         {
-            rubber_float.transform.position += new Vector3(float_dir.x, float_dir.y, 0).normalized * float_speed *Time.deltaTime;
+            rubber_float.transform.position += new Vector3(float_dir.x, float_dir.y, 0).normalized * float_speed ;
 
             if((rubber_float.transform.position - gameObject.transform.position).magnitude >= float_range)
             {               
-                float_dir = initial_pos ;
+                float_dir = -float_dir ;
                 float_turning = true;
             }
-            else if (Mathf.Abs((rubber_float.transform.position - gameObject.transform.position).magnitude) <= 1.6f && float_turning)
+            else if (Mathf.Abs((rubber_float.transform.position - gameObject.transform.position).magnitude) <= 1.9f && float_turning)
             {
                
                 float_moving = false;
