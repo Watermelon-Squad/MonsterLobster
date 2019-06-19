@@ -23,6 +23,11 @@ public class fixed_player : MonoBehaviour
     private Vector3 direction;
 
 
+    private bool dash_inCD = false;
+    private float dash_CD_timer = 0.0f;
+    private float dash_CD = 0.2f;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,31 +46,6 @@ public class fixed_player : MonoBehaviour
             #region movement
             Vector3 new_pos = Vector3.zero;
 
-            Player_walk = false;
-
-            if (Input.GetKey(KeyCode.W))
-            {
-                new_pos.y += speed;
-                Player_walk = true;
-            }
-            if (Input.GetKey(KeyCode.S))
-            {
-                new_pos.y -= speed;
-                Player_walk = true;
-            }
-            if (Input.GetKey(KeyCode.A))
-            {
-                new_pos.x -= speed;
-                Player_walk = true;
-            }
-            if (Input.GetKey(KeyCode.D))
-            {
-                new_pos.x += speed;
-                Player_walk = true;
-            }
-
-            gameObject.transform.position += new_pos * Time.deltaTime;
-
             #endregion
 
             #region rotation
@@ -79,12 +59,24 @@ public class fixed_player : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            Player_dash = true;
+            if (!dash_inCD)
+            {
+                Player_dash = true;
+            }
         }
 
         if (Player_dash)
         {
             gameObject.transform.position -= direction.normalized * dash_speed;
+        }
+
+        if (dash_inCD)
+        {
+            dash_CD_timer += Time.deltaTime;
+            if(dash_CD_timer >= dash_CD)
+            {
+                dash_inCD = false;
+            }
         }
 
         #endregion
@@ -99,6 +91,7 @@ public class fixed_player : MonoBehaviour
     private void DashEnded()
     {
         Player_dash = false;
+        dash_inCD = true;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
