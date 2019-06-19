@@ -10,9 +10,9 @@ public class AttackPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 new_position = new Vector3(EntityPlayer.Call.joystic_x * offset_x, EntityPlayer.Call.joystic_y * offset_y, 0);
+      //  Vector3 new_position = new Vector3(EntityPlayer.Call.joystic_x * offset_x, EntityPlayer.Call.joystic_y * offset_y, 0);
 
-        transform.position = gameObject.transform.parent.position + new_position;
+       // transform.position = gameObject.transform.parent.position + new_position;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
