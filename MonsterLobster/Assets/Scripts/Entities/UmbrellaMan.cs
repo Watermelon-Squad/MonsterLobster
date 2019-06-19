@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class UmbrellaMan : MonoBehaviour
 {
+    
     public float speed = 1.0f;
     public float max_time_running = 4.0f;
     public float max_time_defending = 3.0f;
