@@ -34,11 +34,11 @@ public class TerrainGenerator : MonoBehaviour
                 go.transform.GetChild(2).GetChild(0);
 
                 if (is_left)
-                    if(go.transform.GetChild(2).GetChild(0).childCount > 0)
+                    if(go.transform.GetChild(2).childCount > 0 && go.transform.GetChild(2).GetChild(0).childCount > 0)
                     go.transform.GetChild(2).GetChild(0).GetChild(1).GetComponent<TerrainGenerator>().go = transform.parent.parent.gameObject;
                 else
                     {
-                        if (go.transform.GetChild(2).GetChild(0).childCount > 0)
+                        if (go.transform.GetChild(2).childCount > 0 && go.transform.GetChild(2).GetChild(0).childCount > 0)
                             go.transform.GetChild(2).GetChild(0).GetChild(0).GetComponent<TerrainGenerator>().go = transform.parent.parent.gameObject;
                     }
                        
