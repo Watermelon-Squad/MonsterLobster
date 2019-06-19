@@ -4,15 +4,35 @@ using UnityEngine;
 
 public class DeadEnemy : MonoBehaviour
 {
-
+    private Animator animator = null;
     public bool death = false;
+    int once = 0;
+    public GameObject[] blood;
 
     // Update is called once per frame
-    void Update()
+
+    void Start()
+    {
+        animator = gameObject.GetComponent<Animator>();
+    }
+
+    void FixedUpdate()
     {
         if(death)
         {
+            animator.SetBool("attack", false);
+            animator.SetBool("death", true);
+            BloodStain();
 
+        }
+    }
+
+    void BloodStain()
+    {
+        if (once == 0)
+        {
+            GameObject.Instantiate(blood[Random.RandomRange(0, 2)], transform.position, transform.rotation);
+            once++;
         }
     }
 }

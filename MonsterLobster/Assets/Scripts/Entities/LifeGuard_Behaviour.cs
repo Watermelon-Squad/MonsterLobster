@@ -31,43 +31,44 @@ public class LifeGuard_Behaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if (!float_moving)
+        if (!gameObject.GetComponent<DeadEnemy>().death)
         {
-
-            fire_timer += Time.deltaTime;
-            transform.position += direction.normalized * Time.deltaTime;
-
-            if (fire_timer >= fire_cadence)
+            if (!float_moving)
             {
-                //shoot
-                float_dir = player.transform.position;
-                float_moving = true;
-                fire_timer = 0.0f;
-                rubber_float.SetActive(true);
-                ChangeTarget();
+
+                fire_timer += Time.deltaTime;
+                transform.position += direction.normalized * Time.deltaTime;
+
+                if (fire_timer >= fire_cadence)
+                {
+                    //shoot
+                    float_dir = player.transform.position;
+                    float_moving = true;
+                    fire_timer = 0.0f;
+                    rubber_float.SetActive(true);
+                    ChangeTarget();
+                }
+            }
+            else
+            {
+                rubber_float.transform.position += new Vector3(float_dir.x, float_dir.y, 0).normalized * float_speed;
+
+                if ((rubber_float.transform.position - gameObject.transform.position).magnitude >= float_range)
+                {
+                    float_dir = -float_dir;
+                    float_turning = true;
+                }
+                else if (Mathf.Abs((rubber_float.transform.position - gameObject.transform.position).magnitude) <= 1.9f && float_turning)
+                {
+
+                    float_moving = false;
+                    float_turning = false;
+                    rubber_float.transform.position = initial_pos;
+                    rubber_float.SetActive(false);
+
+                }
             }
         }
-        else
-        {
-            rubber_float.transform.position += new Vector3(float_dir.x, float_dir.y, 0).normalized * float_speed ;
-
-            if((rubber_float.transform.position - gameObject.transform.position).magnitude >= float_range)
-            {               
-                float_dir = -float_dir ;
-                float_turning = true;
-            }
-            else if (Mathf.Abs((rubber_float.transform.position - gameObject.transform.position).magnitude) <= 1.9f && float_turning)
-            {
-               
-                float_moving = false;
-                float_turning = false;
-                rubber_float.transform.position = initial_pos;
-                rubber_float.SetActive(false);
-                
-            }
-        }
-
 
     }
 
