@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DeadEnemy : MonoBehaviour
 {
+    public int points = 30;
     private Animator animator = null;
     public bool death = false;
     int once = 0;
@@ -35,4 +36,6 @@ public class DeadEnemy : MonoBehaviour
             once++;
         }
     }
+
+
 }

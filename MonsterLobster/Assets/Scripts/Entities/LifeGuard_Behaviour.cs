@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LifeGuard_Behaviour : MonoBehaviour
 {
+    
     public GameObject player;
     private GameObject rubber_float;
     public float fire_cadence = 2.0f;

@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class EntityPlayer : MonoBehaviour
 {
+    [HideInInspector]
+    public int score = 0;
+    
     public int life = 3;
     public static EntityPlayer Call = null;
 
@@ -179,7 +182,11 @@ public class EntityPlayer : MonoBehaviour
             life--;
 
             if (life == 0)
+            {
+                PlayerPrefs.SetInt("score", score);
                 SceneManager.LoadScene("Scoreboard Scene");
+            }
+                
 
         }
     }
