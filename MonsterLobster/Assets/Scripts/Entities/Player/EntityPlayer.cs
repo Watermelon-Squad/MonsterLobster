@@ -17,6 +17,8 @@ public class EntityPlayer : MonoBehaviour
     [HideInInspector]
     public bool do_dash = false;
 
+    private bool walking = false;
+
     private float actual_time = 0.0f;
     private float actual_dash_time = 0.0f;
 
@@ -49,9 +51,20 @@ public class EntityPlayer : MonoBehaviour
             new_position.x += velocity;
 
         if (new_position != Vector3.zero)
+        {
+            if (walking == false)
+            {
+                walking = true;
+                transform.GetComponent<AudioSource>().Play();
+            }
             PlayerAnimations.Call.setWalkingAnimation(true);
+        }
         else
+        {
+            walking = false;
+            transform.GetComponent<AudioSource>().Stop();
             PlayerAnimations.Call.setWalkingAnimation(false);
+        }
 
         gameObject.transform.position += new_position * Time.deltaTime;
 
