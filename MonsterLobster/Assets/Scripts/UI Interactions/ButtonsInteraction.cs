@@ -11,7 +11,7 @@ public class ButtonsInteraction : MonoBehaviour
 
     public void onClickPlay()
     {
-        SceneManager.LoadScene("Main Scene");
+        SceneManager.LoadScene("Story Scene");
     }
 
     public void onClickQuit()

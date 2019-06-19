@@ -9,18 +9,16 @@ public class EntityPlayer : MonoBehaviour
     public float velocity = 1.0f;
 
     public float dash_velocity = 8.0f;
-    public float dash_time = 3.0f;
-    public float dash_time_charge = 3.0f;
-    public float dash_cooldown = 5.0f;
 
-    private bool dash_finish = false;
+    private bool charging_dash = false;
+    private float charging_timer = 0.0f;
+    public float charging_max_time = 3.0f;
+    private Vector3 dash_dir;
+
     [HideInInspector]
-    public bool do_dash = false;
+    public bool dashing = false;
 
-    private bool walking = false;
-
-    private float actual_time = 0.0f;
-    private float actual_dash_time = 0.0f;
+    private float dashing_timer = 0.0f;
 
     private GameObject collider_attack = null;
 
@@ -40,111 +38,72 @@ public class EntityPlayer : MonoBehaviour
     {
         //Movement
         Vector3 new_position = Vector3.zero;
-
-        if(Input.GetKey(KeyCode.W))
-            new_position.y += velocity;
-        if (Input.GetKey(KeyCode.S))
-            new_position.y -= velocity;
-        if (Input.GetKey(KeyCode.A))
-            new_position.x -= velocity;
-        if (Input.GetKey(KeyCode.D))
-            new_position.x += velocity;
-
+        if (!dashing)
+        {
+            if (Input.GetKey(KeyCode.W))
+                new_position.y += velocity;
+            if (Input.GetKey(KeyCode.S))
+                new_position.y -= velocity;
+            if (Input.GetKey(KeyCode.A))
+                new_position.x -= velocity;
+            if (Input.GetKey(KeyCode.D))
+                new_position.x += velocity;
+        }
         if (new_position != Vector3.zero)
-        {
-            if (walking == false)
-            {
-                walking = true;
-                transform.GetComponent<AudioSource>().Play();
-            }
             PlayerAnimations.Call.setWalkingAnimation(true);
-        }
-        else
-        {
-            walking = false;
-            transform.GetComponent<AudioSource>().Stop();
-            PlayerAnimations.Call.setWalkingAnimation(false);
-        }
+
 
         gameObject.transform.position += new_position * Time.deltaTime;
 
         //Rotation
 
         Vector3 mouse_position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector3 direction = transform.position - mouse_position;
         
-        if (!do_dash)
+
+        if (!dashing)
         {
+            direction = transform.position - mouse_position;
             float rot = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
             gameObject.transform.rotation = Quaternion.Euler(new Vector3(0.0f, 0.0f, -rot - 90));
-            PlayerAnimations.Call.SetFinishAnimation(false);
         }
 
-        //Dash
-        if (!dash_finish)
+        //
+
+        if (Input.GetMouseButtonDown(0))
         {
-            if (Input.GetMouseButton(0))
-            {
-                if (actual_time <= dash_time_charge)
-                    actual_time += Time.deltaTime;
-            }
-            else if (actual_time > 0 && !do_dash)
-            {
-                do_dash = true;
-                direction_dash = mouse_position - transform.position;
-                direction_dash.z = 0;
-                doAttack(true);
-            }
-        }
-
-        if(do_dash)
-        {
-            dash_time = actual_time;
-            if (actual_dash_time <= dash_time)
-            {
-                actual_dash_time += Time.deltaTime;
-
-                gameObject.transform.position += direction_dash.normalized * dash_velocity * Time.deltaTime;
-            }
-            else
-            {
-                actual_dash_time = 0.0f;
-                actual_time = 0.0f;
-                do_dash = false;
-                dash_finish = true;
-                doAttack(false);
-            }  
-        }
-
-        //Cooldown
-        if(dash_finish)
-        {
-            if (actual_time <= dash_cooldown)
-                actual_time += Time.deltaTime;
-            else
-            {
-                actual_time = 0.0f;
-                dash_finish = false;
-            }
-        }
-
-    }
-
-
-    private void doAttack(bool active)
-    {
-        if (active)
-        {
-            collider_attack.SetActive(true);
             PlayerAnimations.Call.SetDashAnimation(true);
+            charging_dash = true;
+            dash_dir = direction;
         }
-        else
+
+        if (Input.GetMouseButtonUp(0) || charging_timer >= charging_max_time)
         {
-            collider_attack.SetActive(false);
-            PlayerAnimations.Call.SetDashAnimation(false);
-            PlayerAnimations.Call.SetImpactAnimation(false);
-            PlayerAnimations.Call.SetFinishAnimation(true);
+            PlayerAnimations.Call.SetImpactAnimation(true);
+            dashing = true;
+            charging_dash = false;
         }
+
+        if (charging_dash)
+        {
+            charging_timer += Time.deltaTime;
+        }
+
+        else if (dashing)
+        {
+            gameObject.transform.position -= direction.normalized * dash_velocity * Time.deltaTime; 
+            dashing_timer += Time.deltaTime;
+
+            if(dashing_timer > charging_timer)
+            {
+                dashing = false;
+                dashing_timer = 0.0f;
+                charging_timer = 0.0f;
+                PlayerAnimations.Call.setIdleAnimation(true);
+            }
+        }
+
+        gameObject.transform.position = new Vector3 (gameObject.transform.position.x, gameObject.transform.position.y, 0.0f);
+
     }
 
 
