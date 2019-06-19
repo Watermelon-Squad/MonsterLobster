@@ -13,7 +13,9 @@ public class fixed_player : MonoBehaviour
     //Animations
     public Animator player_animator;
     private bool Player_dead = false;
-    public bool Player_dash = false;
+    public bool Player_dash1 = false;
+    public bool Player_dash2 = false;
+    public bool next_dash_1 = true;
     private bool Player_walk = false;
 
     public float speed = 50.0f;
@@ -40,7 +42,7 @@ public class fixed_player : MonoBehaviour
 
        
 
-        if (!Player_dash)
+        if (!Player_dash1 && !Player_dash2)
         {
             direction = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
             #region movement
@@ -59,13 +61,23 @@ public class fixed_player : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            if (!dash_inCD)
+            if (!dash_inCD && !Player_dash1 && !Player_dash2)
             {
-                Player_dash = true;
+                if (next_dash_1)
+                {
+                    Player_dash1 = true;
+                    next_dash_1 = false;
+                }
+
+                else
+                {
+                    Player_dash2 = true;
+                    next_dash_1 = true;
+                }
             }
         }
 
-        if (Player_dash)
+        if (Player_dash1 || Player_dash2)
         {
             gameObject.transform.position -= direction.normalized * dash_speed;
         }
@@ -84,13 +96,15 @@ public class fixed_player : MonoBehaviour
         gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, 0.0f);
 
         player_animator.SetBool("Player_dead", Player_dead);
-        player_animator.SetBool("Player_dashing", Player_dash);
+        player_animator.SetBool("Player_dashing1", Player_dash1);
+        player_animator.SetBool("Player_dashing2", Player_dash2);
         player_animator.SetBool("Player_walking", Player_walk);
     }
 
     private void DashEnded()
     {
-        Player_dash = false;
+        Player_dash1 = false;
+        Player_dash2 = false;
         dash_inCD = true;
     }
 

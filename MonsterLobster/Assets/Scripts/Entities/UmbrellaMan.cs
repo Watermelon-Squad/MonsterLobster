@@ -35,7 +35,7 @@ public class UmbrellaMan : MonoBehaviour
 
                     transform.position += direction * speed * Time.deltaTime;
 
-                    if ((fixed_player.Call.gameObject.transform.position - transform.position).magnitude < min_distance_to_defense && fixed_player.Call.Player_dash)
+                    if ((fixed_player.Call.gameObject.transform.position - transform.position).magnitude < min_distance_to_defense && (fixed_player.Call.Player_dash1 || fixed_player.Call.Player_dash2))
                     {
                         attack_mode = false;
                         actual_time = 0.0f;
