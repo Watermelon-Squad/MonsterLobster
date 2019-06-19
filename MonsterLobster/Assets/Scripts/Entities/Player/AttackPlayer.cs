@@ -10,6 +10,7 @@ public class AttackPlayer : MonoBehaviour
     bool point = false;
     private Vector3 initial_position = Vector3.zero;
     public Text score;
+    public Text total_score;
     int multiplier = 1;
     float timer = 5.0f;
 
@@ -40,6 +41,9 @@ public class AttackPlayer : MonoBehaviour
             score.text += multiplier.ToString();
             point = false;
         }
+
+        total_score.text = (fixed_player.Call.score * multiplier).ToString();
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
