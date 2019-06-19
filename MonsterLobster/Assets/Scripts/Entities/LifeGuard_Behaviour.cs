@@ -12,7 +12,7 @@ public class LifeGuard_Behaviour : MonoBehaviour
     private Vector3 float_dir;
     private bool float_moving = false;
     private bool float_turning = false;
-    private float float_range = 6.0f;
+    private float float_range = 10.0f;
 
     private Vector3 initial_pos;
 
