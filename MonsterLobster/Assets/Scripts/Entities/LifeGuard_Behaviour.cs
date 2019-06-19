@@ -70,7 +70,8 @@ public class LifeGuard_Behaviour : MonoBehaviour
                 }
             }
         }
-
+        else
+            gameObject.transform.GetChild(0).gameObject.SetActive(false);
     }
 
     void ChangeTarget()
