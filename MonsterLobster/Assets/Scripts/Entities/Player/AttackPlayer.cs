@@ -12,6 +12,7 @@ public class AttackPlayer : MonoBehaviour
         {
             PlayerAnimations.Call.SetImpactAnimation(true);
             Audio.GetComponent<AudioSource>().Play();
+            collision.gameObject.GetComponent<DeadEnemy>().death = true;
         }
     }
 }

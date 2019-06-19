@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EntityPlayer : MonoBehaviour
 {
+    public int life = 3;
     public static EntityPlayer Call = null;
 
     public float velocity = 1.0f;
@@ -151,11 +153,13 @@ public class EntityPlayer : MonoBehaviour
 
         else if (dashing)
         {
+            collider_attack.SetActive(true);
             gameObject.transform.position -= direction.normalized * dash_velocity * Time.deltaTime; 
             dashing_timer += Time.deltaTime;
 
             if(dashing_timer > charging_timer)
             {
+                collider_attack.SetActive(false);
                 dashing = false;
                 dashing_timer = 0.0f;
                 charging_timer = 0.0f;
@@ -172,7 +176,11 @@ public class EntityPlayer : MonoBehaviour
     {
         if (collision.gameObject.layer == 11)
         {
-            Debug.Log("Player hit collision");
+            life--;
+
+            if (life == 0)
+                SceneManager.LoadScene("Scoreboard Scene");
+
         }
     }
 
