@@ -29,9 +29,10 @@ public class UmbrellaMan : MonoBehaviour
             if (actual_time <= max_time_running)
             {
                 actual_time += Time.deltaTime;
-                transform.Translate(direction * speed * Time.deltaTime);
 
-               if((EntityPlayer.Call.gameObject.transform.position - transform.position).magnitude < min_distance_to_defense && EntityPlayer.Call.dashing)
+                transform.position += direction * speed * Time.deltaTime;
+
+               if ((EntityPlayer.Call.gameObject.transform.position - transform.position).magnitude < min_distance_to_defense && EntityPlayer.Call.dashing)
                 {
                     attack_mode = false;
                     actual_time = 0.0f;
@@ -53,15 +54,20 @@ public class UmbrellaMan : MonoBehaviour
                 attack_mode = true;
             }
         }
+
+        float rot = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
+        gameObject.transform.rotation = Quaternion.Euler(new Vector3(0.0f, 0.0f, -rot - 90));
     }
 
 
     private void RecalculateDirection()
     {
         direction = EntityPlayer.Call.gameObject.transform.position - transform.position;
-
+        
         if (direction.magnitude > max_magnitude)
             direction = direction.normalized * max_magnitude;
+
+
     }
 
 }
