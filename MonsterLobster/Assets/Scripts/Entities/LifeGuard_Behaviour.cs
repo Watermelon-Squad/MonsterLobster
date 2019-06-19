@@ -54,7 +54,7 @@ public class LifeGuard_Behaviour : MonoBehaviour
 
             if((rubber_float.transform.position - gameObject.transform.position).magnitude >= float_range)
             {               
-                float_dir = transform.position - float_dir;
+                float_dir = initial_pos ;
                 float_turning = true;
             }
             else if (Mathf.Abs((rubber_float.transform.position - gameObject.transform.position).magnitude) <= 1.6f && float_turning)
