@@ -20,7 +20,11 @@ public class TriggerTerrain : MonoBehaviour
         }
     }
 
-
+    private void OnTriggerEnter(Collider other)
+    {
+        go_destroy = false;
+        actual_time = 0.0f;
+    }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
