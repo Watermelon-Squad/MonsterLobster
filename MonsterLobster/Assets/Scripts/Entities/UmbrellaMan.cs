@@ -31,7 +31,7 @@ public class UmbrellaMan : MonoBehaviour
                 actual_time += Time.deltaTime;
                 transform.Translate(direction * speed * Time.deltaTime);
 
-                if((EntityPlayer.Call.gameObject.transform.position - transform.position).magnitude < min_distance_to_defense && EntityPlayer.Call.do_dash)
+               if((EntityPlayer.Call.gameObject.transform.position - transform.position).magnitude < min_distance_to_defense && EntityPlayer.Call.dashing)
                 {
                     attack_mode = false;
                     actual_time = 0.0f;
