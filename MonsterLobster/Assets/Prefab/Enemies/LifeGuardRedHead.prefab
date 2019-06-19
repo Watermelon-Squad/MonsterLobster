@@ -225,7 +225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f9564b82900e674494cae839c54ea3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 3590995120713533735, guid: 941267cf1a71bb344b03b7baa1322ddc, type: 3}
   fire_cadence: 2
   float_speed: 0.2
 --- !u!61 &1939590445387544824
@@ -307,3 +307,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   death: 0
+  blood:
+  - {fileID: 7800083487061323564, guid: 723c6a1e32d894940bc20fd4fab73d9e, type: 3}
+  - {fileID: 8345828132661397573, guid: 91868a7c69e451744938c2c1d3325cff, type: 3}
+  - {fileID: 7800083487061323564, guid: f88aef86d2d68a940aad34f480dd0113, type: 3}
