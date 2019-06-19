@@ -22,6 +22,10 @@ public class EntityPlayer : MonoBehaviour
 
     private GameObject collider_attack = null;
 
+    private float revive_timer = 0.0f;
+    private float revive_maxTime = 2.0f;
+    private bool reviving = false;
+
 
     private Vector3 direction = -Vector3.left;
     private Vector3 direction_dash = Vector3.zero;
@@ -36,6 +40,33 @@ public class EntityPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (Input.GetKey(KeyCode.D))
+            reviving = true;
+
+        if (reviving)
+        {
+
+            if (gameObject.transform.GetComponent<SpriteRenderer>().enabled)
+            {
+                gameObject.transform.GetComponent<SpriteRenderer>().enabled = false;
+            }
+
+            else
+            {
+                gameObject.transform.GetComponent<SpriteRenderer>().enabled = true;
+            }
+
+
+            revive_timer += Time.deltaTime;
+            if(revive_timer >= revive_maxTime)
+            {
+                reviving = false;
+                revive_timer = 0.0f;
+                gameObject.transform.GetComponent<SpriteRenderer>().enabled = true;
+            }
+        }
+
         //Movement
         Vector3 new_position = Vector3.zero;
         if (!dashing)
@@ -105,7 +136,6 @@ public class EntityPlayer : MonoBehaviour
         gameObject.transform.position = new Vector3 (gameObject.transform.position.x, gameObject.transform.position.y, 0.0f);
 
     }
-
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
