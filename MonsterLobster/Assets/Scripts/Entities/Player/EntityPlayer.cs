@@ -24,6 +24,8 @@ public class EntityPlayer : MonoBehaviour
     [HideInInspector]
     public float joystic_y = 0.0f;
 
+    public Vector3 direction = -Vector3.left;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -49,19 +51,7 @@ public class EntityPlayer : MonoBehaviour
 
             doAttack(true);
         }
-        else
-        {
-            if(do_dash)
-            {
-                dash_finish = true;
-                actual_time = 0.0f;
-                do_dash = false;
-                doAttack(false);
-                
-                PlayerAnimations.Call.SetDashAnimation(false);
-                PlayerAnimations.Call.SetFinishAnimation(true);
-            }
-        }
+       
 
         if (Mathf.Abs(Input.GetAxis("Horizontal")) >= 0.2 || Mathf.Abs(Input.GetAxis("Vertical")) >= 0.2 && !do_dash)
         {
@@ -94,17 +84,18 @@ public class EntityPlayer : MonoBehaviour
 
     private void Movement(float velocity, float x = 0, float y = 0)
     {
-        float horizontal = x * velocity;
-        float vertical = y * velocity;
+ 
+        float horizontal = x * velocity * Time.deltaTime;
+        float vertical = y * velocity * Time.deltaTime;
         float rotZ = Mathf.Atan2(horizontal, vertical) * Mathf.Rad2Deg;
 
-        Vector3 new_position = new Vector3(transform.position.x + horizontal, transform.position.y + vertical, 0);
-        gameObject.transform.position = new_position;
+        Vector3 new_position = new Vector3( horizontal,  vertical, 0);
+        direction =  new_position;
+        gameObject.transform.position += new_position;
 
         gameObject.transform.rotation = Quaternion.Euler(new Vector3(0.0f, 0.0f, -rotZ + 90));
-    }
 
-    
+    }
 
     private void Dash()
     {
@@ -116,10 +107,11 @@ public class EntityPlayer : MonoBehaviour
             actual_time = 0.0f;
             do_dash = false;
             doAttack(false);
+            PlayerAnimations.Call.SetImpactAnimation(false);
             PlayerAnimations.Call.SetFinishAnimation(true);
         }
 
-        Movement(dash_velocity,joystic_x, joystic_y);
+        gameObject.transform.position += direction * dash_velocity;
     }
 
     private void doAttack(bool active)
