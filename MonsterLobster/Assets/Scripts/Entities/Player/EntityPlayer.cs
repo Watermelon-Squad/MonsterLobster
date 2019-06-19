@@ -7,7 +7,7 @@ public class EntityPlayer : MonoBehaviour
 {
     [HideInInspector]
     public int score = 0;
-    
+
     public int life = 3;
     public static EntityPlayer Call = null;
 
@@ -190,8 +190,8 @@ public class EntityPlayer : MonoBehaviour
                 PlayerAnimations.Call.SetDieAnimation(true);
                 PlayerPrefs.SetInt("score", score);
             }
-            }
-                
+
+
         }
     }
 
