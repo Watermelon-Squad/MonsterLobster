@@ -8,7 +8,7 @@ public class Spawn : MonoBehaviour
 
     private void Start()
     {
-        if (go.Length - 1 < 0)
+        if (go.Length - 1 > 0)
         {
             int r = Random.Range(0, go.Length - 1);
 

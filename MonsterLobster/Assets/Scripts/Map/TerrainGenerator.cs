@@ -5,7 +5,8 @@ using System.IO;
 
 public class TerrainGenerator : MonoBehaviour
 {
-    private GameObject go = null;
+    [HideInInspector]
+    public GameObject go = null;
 
     public bool is_left = true;
     public GameObject[] gameObjects;
@@ -30,6 +31,13 @@ public class TerrainGenerator : MonoBehaviour
                 }
 
                 go = GameObject.Instantiate(gameObjects[r],new_position, transform.parent.parent.rotation);
+                go.transform.GetChild(2).GetChild(0);
+
+                if(is_left)
+                    go.transform.GetChild(2).GetChild(0).GetChild(1).GetComponent<TerrainGenerator>().go = transform.parent.parent.gameObject;
+                else
+                    go.transform.GetChild(2).GetChild(0).GetChild(0).GetComponent<TerrainGenerator>().go = transform.parent.parent.gameObject;
+
             }
         }
     }
