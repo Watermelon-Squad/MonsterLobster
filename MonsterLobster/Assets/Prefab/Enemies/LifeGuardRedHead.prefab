@@ -201,7 +201,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300030, guid: 353e8ea0b4c4ac64fa50e1a85c5fa4b8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -306,6 +306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a7b759d853c67b4cb9bb4b895a1743f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  points: 30
   death: 0
   blood:
   - {fileID: 7800083487061323564, guid: 723c6a1e32d894940bc20fd4fab73d9e, type: 3}

@@ -7,6 +7,7 @@ public class Map_controller : MonoBehaviour
     public GameObject camera;
     public GameObject floor_tiles_parent;
     public GameObject sea_tiles_parent;
+    public GameObject player;
     private int tiles_moved = 0;
     private float tiles_width = 0.0f;
     
@@ -21,6 +22,7 @@ public class Map_controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        camera.transform.position = new Vector3(player.transform.position.x, -2.8f, -10.0f);
         if(camera.transform.position.x <= (tiles_moved * tiles_width) - tiles_width)
         {
             Debug.Log("Spawn map for left");
