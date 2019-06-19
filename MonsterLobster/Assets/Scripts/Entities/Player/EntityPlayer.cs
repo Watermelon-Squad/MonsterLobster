@@ -74,6 +74,7 @@ public class EntityPlayer : MonoBehaviour
                 do_dash = true;
                 direction_dash = mouse_position - transform.position;
                 direction_dash.z = 0;
+                doAttack(true);
             }
         }
 
@@ -91,6 +92,7 @@ public class EntityPlayer : MonoBehaviour
                 actual_time = 0.0f;
                 do_dash = false;
                 dash_finish = true;
+                doAttack(false);
             }  
         }
 
